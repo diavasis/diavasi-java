@@ -1,0 +1,81 @@
+plugins {
+    id "java"
+    id "application"
+    id "com.google.protobuf" version "0.9.4"
+    id "com.vanniktech.maven.publish" version "0.30.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = "dev.diavasi"
+version = "0.1.0"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = "dev.diavasi.data.Consume"
+}
+
+dependencies {
+    implementation "io.grpc:grpc-netty-shaded:1.68.1"
+    implementation "io.grpc:grpc-protobuf:1.68.1"
+    implementation "io.grpc:grpc-stub:1.68.1"
+    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:3.25.5" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.68.1" }
+    }
+    generateProtoTasks {
+        all().configureEach { task ->
+            task.plugins { grpc {} }
+        }
+    }
+}
+
+sourceSets.main.proto {
+    srcDir "proto"
+    include "data.proto"
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+    coordinates("dev.diavasi", "diavasi-data", "0.1.0")
+    pom {
+        name = "diavasi-data"
+        description = "Thin client for the Diavasi data plane"
+        url = "https://github.com/diavasis/diavasi-java"
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id = "diavasis"
+                name = "diavasis"
+            }
+        }
+        scm {
+            url = "https://github.com/diavasis/diavasi-java"
+            connection = "scm:git:https://github.com/diavasis/diavasi-java.git"
+            developerConnection = "scm:git:ssh://git@github.com/diavasis/diavasi-java.git"
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
