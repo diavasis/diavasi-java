@@ -48,7 +48,8 @@ sourceSets.main.proto {
 }
 
 mavenPublishing {
-    publishToMavenCentral()
+    // 0.30.0 defaults to legacy OSSRH; Portal-only accounts get HTTP 402 from stagingProfiles.
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL, true)
     signAllPublications()
     coordinates("io.github.diavasis", "diavasi-client", "0.1.0")
     pom {
