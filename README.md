@@ -130,3 +130,7 @@ DIAVASI_TOTAL=8 \
 ```
 
 CI runs that suite without a server on Temurin 17, 21, 25, and 27, so the env-gated tests are skipped there. The daemon stays on JDK 21; `-PtestJavaVersion` selects the test JVM.
+
+## Publish
+
+Maven Central releases are documented in [RELEASE.md](RELEASE.md): namespace `io.github.diavasis`, Portal user token, GPG key + keyservers, GitHub secrets, and the `v*` tag that runs the release workflow.
