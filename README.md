@@ -1,17 +1,17 @@
 # Java client
 
 [![CI](https://github.com/diavasis/diavasi-java/actions/workflows/ci.yml/badge.svg)](https://github.com/diavasis/diavasi-java/actions/workflows/ci.yml)
-[![Maven Central](https://img.shields.io/maven-central/v/dev.diavasi/diavasi-client.svg)](https://central.sonatype.com/artifact/dev.diavasi/diavasi-client)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.diavasis/diavasi-client.svg)](https://central.sonatype.com/artifact/io.github.diavasis/diavasi-client)
 [![license](https://img.shields.io/github/license/diavasis/diavasi-java)](https://github.com/diavasis/diavasi-java/blob/main/LICENSE)
 
 `dev.diavasi.client.DiavasiClient` is a thin client of `diavasi.data.v1`, built with grpc-java. `consume` opens a TLS stream, sends the bearer token, Hello version 1, then JoinGroup, and acks each batch. The client stores no cursor and does not dedupe on `record_id`. A dropped stream is how unacked batches return. Reconnect with the same consumer id and the server replays them.
 
-`proto/data.proto` in this repository is the copy of `diavasi.data.v1` from [github.com/diavasis/diavasi](https://github.com/diavasis/diavasi) tag `v0.13.0`. Maven coordinates are `dev.diavasi:diavasi-client:0.1.0`. The published bytecode targets Java 17. CI runs the tests on Temurin 17, 21, 25, and 27. The Gradle daemon always uses JDK 21, because Gradle cannot yet run on Java 27. Each matrix job passes `-PtestJavaVersion` so the test JVM is the matrix release.
+`proto/data.proto` in this repository is the copy of `diavasi.data.v1` from [github.com/diavasis/diavasi](https://github.com/diavasis/diavasi) tag `v0.13.0`. Maven coordinates are `io.github.diavasis:diavasi-client:0.1.0`. The published bytecode targets Java 17. CI runs the tests on Temurin 17, 21, 25, and 27. The Gradle daemon always uses JDK 21, because Gradle cannot yet run on Java 27. Each matrix job passes `-PtestJavaVersion` so the test JVM is the matrix release.
 
 ## Install
 
 ```gradle
-implementation "dev.diavasi:diavasi-client:0.1.0"
+implementation "io.github.diavasis:diavasi-client:0.1.0"
 ```
 
 Build from this repository with JDK 17 or newer and Gradle on `PATH`:

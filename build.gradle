@@ -9,7 +9,7 @@ repositories {
     mavenCentral()
 }
 
-group = "dev.diavasi"
+group = "io.github.diavasis"
 version = "0.1.0"
 
 tasks.withType(JavaCompile).configureEach {
@@ -50,7 +50,7 @@ sourceSets.main.proto {
 mavenPublishing {
     publishToMavenCentral()
     signAllPublications()
-    coordinates("dev.diavasi", "diavasi-client", "0.1.0")
+    coordinates("io.github.diavasis", "diavasi-client", "0.1.0")
     pom {
         name = "diavasi-client"
         description = "Thin client for the Diavasi data plane"
