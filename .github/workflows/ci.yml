@@ -15,12 +15,23 @@ jobs:
       - uses: actions/checkout@v4
       # Gradle itself cannot run on Java 27 yet
       # (https://docs.gradle.org/current/userguide/compatibility.html).
-      # Install Temurin 21 for the daemon, plus the matrix JDK for tests.
-      - uses: actions/setup-java@v4
+      # setup-java leaves JAVA_HOME on the last installed JDK, so pin the
+      # daemon back to 21 when invoking gradle.
+      - name: Set up JDK for Gradle daemon
+        id: gradle-java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: |
-            21
-            ${{ matrix.java }}
+          java-version: "21"
+      - name: Set up JDK for test runtime
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
       - uses: gradle/actions/setup-gradle@v4
-      - run: gradle --no-daemon test -PtestJavaVersion=${{ matrix.java }}
+      - name: Run tests
+        env:
+          JAVA_HOME: ${{ steps.gradle-java.outputs.path }}
+        run: |
+          export PATH="$JAVA_HOME/bin:$PATH"
+          gradle --no-daemon test -PtestJavaVersion=${{ matrix.java }}
