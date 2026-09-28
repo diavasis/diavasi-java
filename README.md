@@ -106,7 +106,9 @@ docker run --rm --network host \
 
 ## Test
 
-`gradle test` returns without asserting until `DIAVASI_DATA_ADDR`, `DIAVASI_CA`, and `DIAVASI_API_TOKEN` are set. With those set, one test consumes `DIAVASI_TOTAL` records (default 8) from `DIAVASI_GROUP` (default `sdk`) as consumer `java-test`. That group must be unconsumed. A finished group leaves the test waiting on heartbeats. The other test joins `sdk-missing` and expects protocol error 5.
+`gradle test` always runs the in-process mock suite. Those tests drive `DiavasiClient` against a fake `DataPlane` on an in-process channel: a fresh group returns record ids 1 through 8, `sdk-missing` is protocol error 5, and a bearer token of `bad-token` is `UNAUTHENTICATED`.
+
+The live-server tests return without asserting until `DIAVASI_DATA_ADDR`, `DIAVASI_CA`, and `DIAVASI_API_TOKEN` are set. With those set, one test consumes `DIAVASI_TOTAL` records (default 8) from `DIAVASI_GROUP` (default `sdk`) as consumer `java-test`. That group must be unconsumed. A finished group leaves the test waiting on heartbeats. The other test joins `sdk-missing` and expects protocol error 5.
 
 ```bash
 curl -fsS -X POST -H "Authorization: Bearer sdk-demo" \

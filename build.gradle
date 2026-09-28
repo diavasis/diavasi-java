@@ -26,6 +26,7 @@ dependencies {
     implementation "io.grpc:grpc-stub:1.68.1"
     compileOnly "org.apache.tomcat:annotations-api:6.0.53"
     testImplementation "org.junit.jupiter:junit-jupiter:5.11.4"
+    testImplementation "io.grpc:grpc-inprocess:1.68.1"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
