@@ -1,4 +1,4 @@
-package dev.diavasi.data;
+package dev.diavasi.client;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assumptions;

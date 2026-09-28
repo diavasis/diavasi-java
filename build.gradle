@@ -12,14 +12,12 @@ repositories {
 group = "dev.diavasi"
 version = "0.1.0"
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
 }
 
 application {
-    mainClass = "dev.diavasi.data.Consume"
+    mainClass = "dev.diavasi.client.Consume"
 }
 
 dependencies {
@@ -51,9 +49,9 @@ sourceSets.main.proto {
 mavenPublishing {
     publishToMavenCentral()
     signAllPublications()
-    coordinates("dev.diavasi", "diavasi-data", "0.1.0")
+    coordinates("dev.diavasi", "diavasi-client", "0.1.0")
     pom {
-        name = "diavasi-data"
+        name = "diavasi-client"
         description = "Thin client for the Diavasi data plane"
         url = "https://github.com/diavasis/diavasi-java"
         licenses {

@@ -1,4 +1,4 @@
-package dev.diavasi.data;
+package dev.diavasi.client;
 
 import diavasi.data.v1.Data;
 import diavasi.data.v1.DataPlaneGrpc;

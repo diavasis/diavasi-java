@@ -6,4 +6,4 @@
  * package does not dedupe on it. Dropping the stream is how unacked batches
  * return. Reconnect with the same consumer id and the server replays them.
  */
-package dev.diavasi.data;
+package dev.diavasi.client;

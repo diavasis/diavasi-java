@@ -1,4 +1,4 @@
-package dev.diavasi.data;
+package dev.diavasi.client;
 
 /**
  * Command-line consumer for {@code diavasi.data.v1}.
