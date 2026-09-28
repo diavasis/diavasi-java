@@ -77,4 +77,10 @@ mavenPublishing {
 
 test {
     useJUnitPlatform()
+    def testJavaVersion = providers.gradleProperty("testJavaVersion")
+    if (testJavaVersion.isPresent()) {
+        javaLauncher = javaToolchains.launcherFor {
+            languageVersion = JavaLanguageVersion.of(testJavaVersion.get())
+        }
+    }
 }

@@ -6,7 +6,7 @@
 
 `dev.diavasi.client.DiavasiClient` is a thin client of `diavasi.data.v1`, built with grpc-java. `consume` opens a TLS stream, sends the bearer token, Hello version 1, then JoinGroup, and acks each batch. The client stores no cursor and does not dedupe on `record_id`. A dropped stream is how unacked batches return. Reconnect with the same consumer id and the server replays them.
 
-`proto/data.proto` in this repository is the copy of `diavasi.data.v1` from [github.com/diavasis/diavasi](https://github.com/diavasis/diavasi) tag `v0.13.0`. Maven coordinates are `dev.diavasi:diavasi-client:0.1.0`. The published bytecode targets Java 17. CI runs the tests on Temurin 17, 21, 25, and 27.
+`proto/data.proto` in this repository is the copy of `diavasi.data.v1` from [github.com/diavasis/diavasi](https://github.com/diavasis/diavasi) tag `v0.13.0`. Maven coordinates are `dev.diavasi:diavasi-client:0.1.0`. The published bytecode targets Java 17. CI runs the tests on Temurin 17, 21, 25, and 27. The Gradle daemon always uses JDK 21, because Gradle cannot yet run on Java 27. Each matrix job passes `-PtestJavaVersion` so the test JVM is the matrix release.
 
 ## Install
 
@@ -129,4 +129,4 @@ DIAVASI_TOTAL=8 \
   gradle test
 ```
 
-CI runs that suite without a server on Temurin 17, 21, 25, and 27, so the env-gated tests are skipped there.
+CI runs that suite without a server on Temurin 17, 21, 25, and 27, so the env-gated tests are skipped there. The daemon stays on JDK 21; `-PtestJavaVersion` selects the test JVM.
